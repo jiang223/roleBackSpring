@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaussic.dao.BlogService">
+    <insert id="saveBlog" parameterType="Map" >
+      INSERT into blog(title,content,user_id) VALUES(#{title},#{content},11)
+    </insert>
+    <select id="selectBlog" parameterType="Map" resultType="Map">
+        SELECT dddd (
+		GROUP_CONCAT(content) USING utf8
+	) as content
+        ,title
+         from  blog WHERE  id=#{id}
+
+    </select>
+</mapper>
