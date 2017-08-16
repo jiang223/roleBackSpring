@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.RoleFunDao">
+
+  <insert id="insertSelective" parameterType="map">
+    insert into t_role_fun
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nrid != null">
+        nrid,
+      </if>
+      <if test="nfid != null">
+        nfid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nrid != null">
+        #{nrid,jdbcType=BIGINT},
+      </if>
+      <if test="nfid != null">
+        #{nfid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>
