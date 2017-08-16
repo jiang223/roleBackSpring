@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,6 +22,19 @@ public class SysMenuController extends ParentController {
     @Resource
     FunDao funDao;
 
+    @RequestMapping(method =RequestMethod.GET)
+    @ResponseBody
+    public Map get(HttpSession session, @RequestParam Map<String,Object>map)
+    {
+        try {
+            List<Map> list=funDao.findMenuAll();
+            return resultSucess(list);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultError("失败"+e);
+        }
+
+    }
     @RequestMapping(method =RequestMethod.POST)
     @ResponseBody
     public Map add(HttpSession session, @RequestBody Map<String,Object>map)
@@ -52,7 +66,13 @@ public class SysMenuController extends ParentController {
     @ResponseBody
     public Map delete(HttpSession session, @RequestBody Map<String,Object>map)
     {
-        return  resultSucess("");
+        try {
+            funDao.deleteById(map);
+            return resultSucess("删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultError("失败"+e);
+        }
 
     }
 }

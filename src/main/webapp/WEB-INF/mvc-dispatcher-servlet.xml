@@ -19,7 +19,13 @@
 
     <!-- API 接口跨域配置 -->
     <mvc:cors>
-        <mvc:mapping path="/**" />
+        <mvc:mapping path="*"
+                     allowed-origins="*"
+                     allowed-methods="GET, PUT"
+                     allowed-headers="header1, header2, header3"
+                     exposed-headers="header1, header2" allow-credentials="false"
+                     max-age="123" />
+
     </mvc:cors>
 
     <!--ViewResolver 视图解析器-->
@@ -38,7 +44,7 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/spring" />
+        <property name="url" value="jdbc:mysql://119.23.110.10:3306/role" />
         <property name="username" value="root" />
         <property name="password" value="123" />
         <!-- 初始化连接大小 -->

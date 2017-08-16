@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.FunDao">
-
   <insert id="insertSelective" parameterType="map">
     insert into t_fun
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -26,6 +25,9 @@
       <if test="method != null">
         method,
       </if>
+      <if test="route != null">
+        route,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -49,8 +51,15 @@
       <if test="method != null">
         #{method,jdbcType=LONGVARCHAR},
       </if>
+      <if test="route != null">
+        #{route,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
+  <delete id="deleteById" parameterType="map">
+    DELETE  FROM t_fun
+    where id=#{id}
+  </delete>
   <update id="updateByPrimaryKeySelective" parameterType="map">
     update t_fun
     <set>
@@ -72,7 +81,33 @@
       <if test="method != null">
         method = #{method,jdbcType=LONGVARCHAR},
       </if>
+      <if test="route != null">
+        route = #{route,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+
+  <!-- 返回结果集 -->
+  <resultMap type="map" id="menu_map">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="fid" jdbcType="INTEGER" property="fid" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="route" jdbcType="VARCHAR" property="route" />
+    <collection property="childern" column="id"
+                 javaType="map" select="findMenuByparentId" />
+  </resultMap>
+  <!--查询所有，使用resultMap返回结果集，将数据组装成树形结构  -->
+  <select id="findMenuAll" resultMap="menu_map">
+    select * from t_fun where fid='0'
+  </select>
+  <!-- 根据父键查询 -->
+  <select id="findMenuByparentId" resultMap="menu_map" parameterType="INTEGER">
+    select *  from t_fun where fid=#{id}
+  </select>
 </mapper>
