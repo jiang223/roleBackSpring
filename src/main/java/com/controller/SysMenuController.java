@@ -3,7 +3,9 @@ package com.controller;
 
 import com.dao.FunDao;
 import com.util.ParentController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
