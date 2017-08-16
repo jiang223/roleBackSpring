@@ -1,4 +1,4 @@
-package com.ext.controller;
+package com.util;
 
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.wrapper.MapWrapper;

@@ -1,4 +1,4 @@
-package com.gaussic.dao;
+package com.dao;
 
 import java.util.Map;
 

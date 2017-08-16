@@ -1,4 +1,4 @@
-import com.gaussic.dao.BookMapper;
+import com.gaussic.dao1.BookMapper;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

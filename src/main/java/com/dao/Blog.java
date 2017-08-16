@@ -1,4 +1,4 @@
-package com.gaussic.dao;
+package com.dao;
 
 /**
  * Created by a9805943 on 2017/3/18.

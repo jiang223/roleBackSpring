@@ -5,7 +5,7 @@
     <artifactId>springdemo-list</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>springdemo-list Maven Webapp</name>
+    <name>springdemo-list  Maven  Webapp</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -161,7 +161,6 @@
             <version>2.1</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>us.codecraft</groupId>
             <artifactId>webmagic-core</artifactId>
@@ -180,9 +179,6 @@
             <scope>test</scope>
             <version>4.12</version>
         </dependency>
-
-
-
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
@@ -200,6 +196,7 @@
             <version>2.0</version>
         </dependency>
     </dependencies>
+
     <build>
         <finalName>springmvcdemo</finalName>
         <plugins>

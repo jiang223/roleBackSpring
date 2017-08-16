@@ -1,4 +1,4 @@
-package com.ext.controller;
+package com.util;
 
 import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;

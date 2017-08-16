@@ -10,8 +10,8 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!--指明 controller 所在包，并扫描其中的注解-->
-    <context:component-scan base-package="com.gaussic.controller,com.ext.controller"/>
-
+    <context:component-scan base-package="com.controller,com.controller"/>
+    <context:component-scan base-package="com.controller,com.service"/>
     <!-- 静态资源(js、image等)的访问 -->
     <mvc:default-servlet-handler/>
 
@@ -58,13 +58,13 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath:com/gaussic/dao/*.xml"></property>
+        <property name="mapperLocations" value="classpath:com/dao/*.xml"></property>
         <property name="configLocation" value="classpath:com/resource/mybatis-config.xml"/>
     </bean>
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.gaussic.dao" />
+        <property name="basePackage" value="com.gaussic.dao1" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 
