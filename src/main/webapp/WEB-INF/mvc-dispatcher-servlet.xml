@@ -59,7 +59,7 @@
         <property name="dataSource" ref="dataSource" />
         <!-- 自动扫描mapping.xml文件 -->
         <property name="mapperLocations" value="classpath:com/gaussic/dao/*.xml"></property>
-        <property name="configLocation" value="classpath:config/spring/mybatis-config.xml"/>
+        <property name="configLocation" value="classpath:com/resource/mybatis-config.xml"/>
     </bean>
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
@@ -77,4 +77,5 @@
    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     <!-- 开启事务管理注解 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    <import resource="spring-redis.xml"></import>
 </beans>
