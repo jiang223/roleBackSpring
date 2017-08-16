@@ -99,8 +99,8 @@
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="route" jdbcType="VARCHAR" property="route" />
-    <collection property="childern" column="id"
-                 javaType="map" select="findMenuByparentId" />
+    <collection property="children" column="id"
+                select="findMenuByparentId" />
   </resultMap>
   <!--查询所有，使用resultMap返回结果集，将数据组装成树形结构  -->
   <select id="findMenuAll" resultMap="menu_map">
