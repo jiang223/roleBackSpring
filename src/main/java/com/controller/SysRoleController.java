@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.dao.RoleDao;
+import com.dao.RoleFunDao;
 import com.util.ParentController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,28 @@ import java.util.Map;
 public class SysRoleController extends ParentController {
     @Resource
     RoleDao roleDao;
+    @Resource
+    RoleFunDao roleFunDao;
 
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
     public Map get(HttpSession session, @RequestParam Map<String,Object>map)
     {
         try {
+
             List<Map> list=roleDao.findPage(map);
+            return resultSucess(list);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultError("失败"+e);
+        }
+    }
+    @RequestMapping(value = "getCheckMenu",method =RequestMethod.GET)
+    @ResponseBody
+    public Map getCheckMenu(HttpSession session, @RequestParam Map<String,Object>map)
+    {
+        try {
+            List<String> list=roleFunDao.selectByRoleId(map);
             return resultSucess(list);
         }catch (Exception e){
             e.printStackTrace();
@@ -62,6 +78,8 @@ public class SysRoleController extends ParentController {
     public Map updateFunction(HttpSession session, @RequestBody Map<String,Object>map)
     {
         try {
+            roleFunDao.deleteById(map);
+            roleFunDao.batchInsert(map);
             return resultSucess("修改成功");
         }catch (Exception e){
             e.printStackTrace();

@@ -2,23 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.RoleFunDao">
 
-  <insert id="insertSelective" parameterType="map">
+  <insert id="batchInsert" parameterType="map">
     insert into t_role_fun
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="nrid != null">
-        nrid,
-      </if>
-      <if test="nfid != null">
-        nfid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="nrid != null">
-        #{nrid,jdbcType=BIGINT},
-      </if>
-      <if test="nfid != null">
-        #{nfid,jdbcType=BIGINT},
-      </if>
-    </trim>
+    (nrid,nfid,mode)
+    VALUES
+    <foreach collection="checkedKeys" item="item" index="index" separator="," >
+      (#{roleId},#{item,jdbcType=INTEGER},1)
+    </foreach>
+    <foreach collection="pList" item="item" index="index" separator="," >
+      (#{roleId},#{item,jdbcType=INTEGER},0)
+    </foreach>
   </insert>
+  <delete id="deleteById" parameterType="map">
+    DELETE  FROM
+          t_role_fun
+          WHERE nrid=#{roleId}
+  </delete>
+  <select id="selectByRoleId" parameterType="map" resultType="String">
+        SELECT
+          rf.nfid
+      FROM
+          t_role_fun rf
+      WHERE
+          rf.nrid=#{roleId}
+      AND rf. MODE = 1
+  </select>
 </mapper>
