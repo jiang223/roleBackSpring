@@ -29,12 +29,7 @@ public class SysMenuController extends ParentController {
     public Map get(HttpSession session, @RequestParam Map<String,Object>map)
     {
         try {
-            PageHelper.startPage(1, 2);
             List<Map> list = funDao.findMenuAll();
-            //用PageInfo对结果进行包装
-            PageInfo page = new PageInfo(list);
-
-           // List<Map> list=funDao.findMenuAll();
             return resultSucess(list);
         }catch (Exception e){
             e.printStackTrace();

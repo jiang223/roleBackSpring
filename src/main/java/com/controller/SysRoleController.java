@@ -2,6 +2,9 @@ package com.controller;
 
 import com.dao.RoleDao;
 import com.dao.RoleFunDao;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.model.Pagination;
 import com.util.ParentController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +29,22 @@ public class SysRoleController extends ParentController {
     public Map get(HttpSession session, @RequestParam Map<String,Object>map)
     {
         try {
-
+            Pagination pagination=new Pagination(map);
+            PageHelper.startPage(pagination.getPage(), pagination.getPageSize());
+            //用PageInfo对结果进行包装
+            List<Map> list=roleDao.findPage(map);
+            pagination.setTotal(new PageInfo(list).getTotal());
+            return resultSucess(list,pagination);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultError("失败"+e);
+        }
+    }
+    @RequestMapping(value = "findRole",method =RequestMethod.GET)
+    @ResponseBody
+    public Map findRole(HttpSession session, @RequestParam Map<String,Object>map)
+    {
+        try {
             List<Map> list=roleDao.findPage(map);
             return resultSucess(list);
         }catch (Exception e){

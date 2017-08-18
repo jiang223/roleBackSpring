@@ -28,6 +28,7 @@ public class SysUserController extends ParentController {
     public Map get(HttpSession session, @RequestParam Map map)
     {
         try {
+
             Pagination pagination=new Pagination(map);
             PageHelper.startPage(pagination.getPage(), pagination.getPageSize());
             //用PageInfo对结果进行包装
@@ -48,7 +49,7 @@ public class SysUserController extends ParentController {
             if(userDao.insertSelective(map)>0){
                 return resultSucess("添加成功");
             }else{
-                return resultError("为添加成功");
+                return resultError("未添加成功");
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -62,8 +63,12 @@ public class SysUserController extends ParentController {
     public Map update(HttpSession session, @RequestBody Map<String,Object>map)
     {
         try {
-            userDao.updateByPrimaryKeySelective(map);
-            return resultSucess("修改成功");
+            if(userDao.updateByPrimaryKeySelective(map)>0){
+                return resultSucess("修改成功");
+            }else{
+                return resultError("修改失败");
+            }
+
         }catch (Exception e){
             e.printStackTrace();
             return resultError("失败"+e);

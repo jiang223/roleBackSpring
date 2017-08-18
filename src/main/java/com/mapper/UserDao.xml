@@ -70,6 +70,6 @@
     DELETE  from t_sys_user where id=#{id}
   </delete>
   <select id="findUserPage" parameterType="map" resultType="map">
-    SELECT  * FROM t_user
+    SELECT  u.*,r.name as roleName FROM t_user u left join t_role  r on r.id=u.role_id
   </select>
 </mapper>
