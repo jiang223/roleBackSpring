@@ -2,6 +2,9 @@ package com.controller;
 
 
 import com.dao.UserDao;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.model.Pagination;
 import com.util.ParentController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +25,15 @@ public class SysUserController extends ParentController {
 
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
-    public Map get(HttpSession session, @RequestParam Map<String,Object>map)
+    public Map get(HttpSession session, @RequestParam Map map)
     {
         try {
-
+            Pagination pagination=new Pagination(map);
+            PageHelper.startPage(pagination.getPage(), pagination.getPageSize());
+            //用PageInfo对结果进行包装
             List<Map> list=userDao.findUserPage();
-            return resultSucess(list);
+            pagination.setTotal(new PageInfo(list).getTotal());
+            return resultSucess(list,pagination);
         }catch (Exception e){
             e.printStackTrace();
             return resultError("失败"+e);
@@ -39,16 +45,11 @@ public class SysUserController extends ParentController {
     public Map add(HttpSession session, @RequestBody Map<String,Object>map)
     {
         try {
-            userDao.insertSelective(map);
-            String route;
-            if ("".equals(map.get("route"))){
-                 route=map.get("id").toString();
+            if(userDao.insertSelective(map)>0){
+                return resultSucess("添加成功");
             }else{
-                 route=map.get("route")+"-"+map.get("id").toString();
+                return resultError("为添加成功");
             }
-            map.put("route",route);
-            userDao.updateByPrimaryKeySelective(map);
-            return resultSucess("添加成功");
         }catch (Exception e){
             e.printStackTrace();
             return resultError("失败"+e);

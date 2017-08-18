@@ -69,5 +69,7 @@
   <delete id="deleteById" parameterType="map">
     DELETE  from t_sys_user where id=#{id}
   </delete>
-  <select id=""></select>
+  <select id="findUserPage" parameterType="map" resultType="map">
+    SELECT  * FROM t_user
+  </select>
 </mapper>

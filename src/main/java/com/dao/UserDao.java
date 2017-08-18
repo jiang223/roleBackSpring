@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public interface UserDao {
     List<Map> findUserPage();
-    void insertSelective(Map map);
-    void updateByPrimaryKeySelective(Map map);
-    void  deleteById(Map map);
+    int insertSelective(Map map);
+    int updateByPrimaryKeySelective(Map map);
+    int  deleteById(Map map);
 }
