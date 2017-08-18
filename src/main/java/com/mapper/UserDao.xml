@@ -67,9 +67,9 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <delete id="deleteById" parameterType="map">
-    DELETE  from t_sys_user where id=#{id}
+    DELETE  from t_user where user_id=#{userId}
   </delete>
   <select id="findUserPage" parameterType="map" resultType="map">
-    SELECT  u.*,r.name as roleName FROM t_user u left join t_role  r on r.id=u.role_id
+    SELECT  u.*,date_format(u.birthday, '%Y-%m-%d') as sbirthday,r.name as roleName FROM t_user u left join t_role  r on r.id=u.role_id
   </select>
 </mapper>

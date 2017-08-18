@@ -46,7 +46,5 @@
     SELECT  * FROM
     t_role
     WHERE 1=1
-    limit ${pageSize}
-    offset ${page*pageSize-pageSize}
   </select>
 </mapper>
