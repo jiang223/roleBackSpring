@@ -1,13 +1,9 @@
 package com.controller;
 
 
-import com.dao.FunDao;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.dao.UserDao;
 import com.util.ParentController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,22 +15,18 @@ import java.util.Map;
  * Created by Administrator on 2017-08-16.
  */
 @Controller
-@RequestMapping("/sysMenu")
-public class SysMenuController extends ParentController {
+@RequestMapping("/sysUser")
+public class SysUserController extends ParentController {
     @Resource
-    FunDao funDao;
+    UserDao userDao;
 
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
     public Map get(HttpSession session, @RequestParam Map<String,Object>map)
     {
         try {
-            PageHelper.startPage(1, 2);
-            List<Map> list = funDao.findMenuAll();
-            //用PageInfo对结果进行包装
-            PageInfo page = new PageInfo(list);
 
-           // List<Map> list=funDao.findMenuAll();
+            List<Map> list=userDao.findUserPage();
             return resultSucess(list);
         }catch (Exception e){
             e.printStackTrace();
@@ -47,15 +39,15 @@ public class SysMenuController extends ParentController {
     public Map add(HttpSession session, @RequestBody Map<String,Object>map)
     {
         try {
-            funDao.insertSelective(map);
+            userDao.insertSelective(map);
             String route;
-            if ("".equals((String)map.get("route"))){
+            if ("".equals(map.get("route"))){
                  route=map.get("id").toString();
             }else{
-                 route=(String)map.get("route")+"-"+map.get("id").toString();
+                 route=map.get("route")+"-"+map.get("id").toString();
             }
             map.put("route",route);
-            funDao.updateByPrimaryKeySelective(map);
+            userDao.updateByPrimaryKeySelective(map);
             return resultSucess("添加成功");
         }catch (Exception e){
             e.printStackTrace();
@@ -69,7 +61,7 @@ public class SysMenuController extends ParentController {
     public Map update(HttpSession session, @RequestBody Map<String,Object>map)
     {
         try {
-            funDao.updateByPrimaryKeySelective(map);
+            userDao.updateByPrimaryKeySelective(map);
             return resultSucess("修改成功");
         }catch (Exception e){
             e.printStackTrace();
@@ -82,7 +74,7 @@ public class SysMenuController extends ParentController {
     public Map delete(HttpSession session, @RequestBody Map<String,Object>map)
     {
         try {
-            funDao.deleteById(map);
+            userDao.deleteById(map);
             return resultSucess("删除成功");
         }catch (Exception e){
             e.printStackTrace();
