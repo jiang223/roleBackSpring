@@ -29,7 +29,6 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>1.10.1.RELEASE</version>
         </dependency>
-
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -50,18 +49,10 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.4.0</version>
         </dependency>
-
-
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
             <version>0.9.5.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
         <dependency>
@@ -83,57 +74,12 @@
             <version>1.3</version>
         </dependency>
 
-
-<!--        <dependency>
-        <groupId>org.wltea.analyzer</groupId>
-        <artifactId>IKAnalyzer</artifactId>
-        <version>2012FF_u1</version>
-        <scope>system</scope>
-        <systemPath>${project.basedir}/lib/commons-codec-1.9.jar
-        </systemPath>
-        </dependency>-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.6.2</version>
         </dependency>
-<!--        <dependency>
-            <groupId>commons</groupId>
-            <artifactId>fileupload</artifactId>
-            <version>222</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/commons-fileupload-1.3.1.jar
-            </systemPath>
-        </dependency>-->
 
-<!--        <dependency>
-            <groupId>org.ueditor.analyzer</groupId>
-            <artifactId>ueditor</artifactId>
-            <version>ueditor</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/ueditor-1.1.2.jar
-            </systemPath>
-        </dependency>-->
-
-<!--
-        <dependency>
-            <groupId>commons</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>commons-io</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/commons-io-2.4.jar
-            </systemPath>
-        </dependency>
--->
-
-<!--        <dependency>
-            <groupId>json</groupId>
-            <artifactId>json-io</artifactId>
-            <version>json-io</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/json.jar
-            </systemPath>
-        </dependency>-->
 
         <!--LOG4J-->
         <dependency>
@@ -152,7 +98,7 @@
             <version>1.2.16</version>
         </dependency><!--结束-->
 
-        <dependency>
+<!--        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
@@ -162,8 +108,9 @@
             <artifactId>jsp-api</artifactId>
             <version>2.1</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--爬虫-->
+<!--        <dependency>
             <groupId>us.codecraft</groupId>
             <artifactId>webmagic-core</artifactId>
             <scope>test</scope>
@@ -174,7 +121,7 @@
             <artifactId>webmagic-extension</artifactId>
             <scope>test</scope>
             <version>0.6.1</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -191,7 +138,6 @@
             <artifactId>jedis</artifactId>
             <version>2.4.2</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
