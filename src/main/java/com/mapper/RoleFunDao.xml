@@ -4,13 +4,10 @@
 
   <insert id="batchInsert" parameterType="map">
     insert into t_role_fun
-    (nrid,nfid,mode)
+    (nrid,nfid)
     VALUES
     <foreach collection="checkedKeys" item="item" index="index" separator="," >
-      (#{roleId},#{item,jdbcType=INTEGER},1)
-    </foreach>
-    <foreach collection="pList" item="item" index="index" separator="," >
-      (#{roleId},#{item,jdbcType=INTEGER},0)
+      (#{roleId},#{item,jdbcType=INTEGER})
     </foreach>
   </insert>
   <delete id="deleteById" parameterType="map">
@@ -25,6 +22,35 @@
           t_role_fun rf
       WHERE
           rf.nrid=#{roleId}
-      AND rf. MODE = 1
   </select>
+
+    <!-- 返回结果集 -->
+    <resultMap type="map" id="menu_map">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <collection property="children" column="id"
+                    select="findMenuByparentId" />
+    </resultMap>
+    <!--查询所有，使用resultMap返回结果集，将数据组装成树形结构  -->
+    <select id="findMenuByRole" resultMap="menu_map">
+      SELECT
+    f.id,
+    f.`name`,
+    f.url
+    FROM
+        t_fun f
+    LEFT JOIN t_role_fun rf ON f.id = rf.nfid
+    WHERE
+        rf.nrid = #{roleId}
+    AND f.fid = 0
+    ORDER BY f.sort
+    </select>
+    <!-- 根据父键查询 -->
+    <select id="findMenuByparentId" resultType="map" parameterType="INTEGER">
+        select   f.id,
+    f.`name`,
+    f.url  from t_fun f where f.fid=#{id}
+    ORDER BY f.sort
+    </select>
 </mapper>

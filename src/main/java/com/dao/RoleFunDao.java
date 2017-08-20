@@ -11,4 +11,5 @@ public interface RoleFunDao {
     List<String> selectByRoleId(Map map);
     int batchInsert(Map map);
     int deleteById(Map map);
+    List<Map >findMenuByRole(Map map);
 }

@@ -72,4 +72,14 @@
   <select id="findUserPage" parameterType="map" resultType="map">
     SELECT  u.*,date_format(u.birthday, '%Y-%m-%d') as sbirthday,r.name as roleName FROM t_user u left join t_role  r on r.id=u.role_id
   </select>
+  <!---->
+  <select id="login" parameterType="map" resultType="map">
+        SELECT
+        *
+    FROM
+        t_user
+    WHERE
+        user_name =#{username}
+    AND `password` =#{password}
+  </select>
 </mapper>

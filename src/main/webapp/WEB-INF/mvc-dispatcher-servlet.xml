@@ -30,11 +30,11 @@
 
     <!--ViewResolver 视图解析器-->
     <!--用于支持Servlet、JSP视图解析-->
-    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<!--    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/pages/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
+        <property name="suffix" value=""/>
+    </bean>-->
 
     <!-- 引入配置文件 -->
     <!--<bean id="propertyConfigurer"-->
@@ -44,7 +44,8 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://119.23.110.10:3306/role" />
+    <property name="url" value="jdbc:mysql://119.23.110.10:3306/role" />
+      <!--  <property name="url" value="jdbc:mysql://localhost:3306/role" />-->
         <property name="username" value="root" />
         <property name="password" value="123" />
         <!-- 初始化连接大小 -->
