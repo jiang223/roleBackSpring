@@ -8,7 +8,11 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.AccessDeniedException;
@@ -49,6 +53,12 @@ public class AdviceTest {
                 "log PermissionAspect Before method: " + jp.getTarget().getClass().getName() + "." + jp.getSignature().getName());
         Method soruceMethod = getSourceMethod(jp);
         if(soruceMethod!=null){
+            RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+            ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+            HttpServletRequest request = sra.getRequest();
+            String url = request.getRequestURL().toString();
+            String method = request.getMethod();
+            String uri = request.getRequestURI();
             ValidatePermission oper = soruceMethod.getAnnotation(ValidatePermission.class);
             if (oper != null) {
                 int fIdx = oper.idx();
