@@ -3,11 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
     <!--指明 controller 所在包，并扫描其中的注解-->
     <context:component-scan base-package="com.controller,com.service"/>
@@ -28,6 +31,16 @@
 
     </mvc:cors>
 
+    <aop:aspectj-autoproxy />
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!-- <property name="defaultErrorView" value="rediret:/error"></property>   -->
+        <property name="exceptionMappings">
+            <props>
+                <!--<prop key="com.jykj.demo.exception.AuthorizationException">redirect:/login</prop>-->
+                <prop key="com.util.MyException">forward:/accessDenied</prop>
+            </props>
+        </property>
+    </bean>
     <!--ViewResolver 视图解析器-->
     <!--用于支持Servlet、JSP视图解析-->
 <!--    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

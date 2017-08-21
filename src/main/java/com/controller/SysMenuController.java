@@ -5,6 +5,7 @@ import com.dao.FunDao;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.util.ParentController;
+import com.util.ValidatePermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class SysMenuController extends ParentController {
 
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
+    @ValidatePermission
     public Map get(HttpSession session, @RequestParam Map<String,Object>map)
     {
         try {

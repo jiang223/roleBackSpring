@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.model.Pagination;
 import com.util.ParentController;
+import com.util.ValidatePermission;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +26,10 @@ public class SysUserController extends ParentController {
 
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
+    @ValidatePermission
     public Map get(HttpSession session, @RequestParam Map map)
     {
         try {
-
             Pagination pagination=new Pagination(map);
             PageHelper.startPage(pagination.getPage(), pagination.getPageSize());
             //用PageInfo对结果进行包装
