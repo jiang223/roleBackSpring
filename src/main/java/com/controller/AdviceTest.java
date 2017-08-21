@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.dao.RoleFunDao;
 import com.util.MyException;
 import com.util.ValidatePermission;
 import org.aspectj.lang.JoinPoint;
@@ -12,17 +13,22 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.AccessDeniedException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
 @Component
 @Aspect
-public class AdviceTest { 
+public class AdviceTest {
+    @Resource
+    RoleFunDao roleFunDao;
     @Around("execution( * com.gjj.controller.*.*(..))")
     public Object process(ProceedingJoinPoint point) throws Throwable {
         System.out.println("@Around：执行目标方法之前...");
@@ -49,6 +55,8 @@ public class AdviceTest {
     }
     @Around("execution( * com.controller.*.*(..))")
     public Object doBefore(ProceedingJoinPoint jp) throws Throwable {
+        Object[] args = jp.getArgs();
+        Object returnValue = jp.proceed(args);
         System.out.println(
                 "log PermissionAspect Before method: " + jp.getTarget().getClass().getName() + "." + jp.getSignature().getName());
         Method soruceMethod = getSourceMethod(jp);
@@ -59,10 +67,12 @@ public class AdviceTest {
             String url = request.getRequestURL().toString();
             String method = request.getMethod();
             String uri = request.getRequestURI();
+            HttpSession session=request.getSession();
             ValidatePermission oper = soruceMethod.getAnnotation(ValidatePermission.class);
             if (oper != null) {
+                Map userMap=(Map) session.getAttribute("user");
+                List<Map> funList= roleFunDao.findFunByRole(userMap);
                 int fIdx = oper.idx();
-                Object[] args = jp.getArgs();
                 if (fIdx>= 0 &&fIdx<args.length){
                     //int functionId = (Integer) args[fIdx];
                     /*String rs = sysUserRolePermService.permissionValidate(functionId);
@@ -74,8 +84,6 @@ public class AdviceTest {
                throw new MyException("您无权操作！");
             }
         }
-        Object[] args = jp.getArgs();
-        Object returnValue = jp.proceed(args);
         return returnValue;
     }
     private Method getSourceMethod(JoinPoint jp){

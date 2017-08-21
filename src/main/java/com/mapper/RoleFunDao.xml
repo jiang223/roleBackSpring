@@ -53,4 +53,20 @@
     f.url  from t_fun f where f.fid=#{id}
     ORDER BY f.sort
     </select>
+
+
+    <!-- 根据父键查询 -->
+    <select id="findFunByRole" resultType="map" parameterType="map">
+          SELECT
+        f.id,
+        f.`name`,
+        f.route,
+        f.url
+        FROM
+            t_fun f
+        LEFT JOIN t_role_fun rf ON f.id = rf.nfid
+        WHERE
+            rf.nrid = #{roleId}
+        ORDER BY f.sort
+    </select>
 </mapper>
