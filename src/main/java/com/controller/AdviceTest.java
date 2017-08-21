@@ -71,7 +71,8 @@ public class AdviceTest {
             ValidatePermission oper = soruceMethod.getAnnotation(ValidatePermission.class);
             if (oper != null) {
                 Map userMap=(Map) session.getAttribute("user");
-                List<Map> funList= roleFunDao.findFunByRole(userMap);
+                List<String> funList= roleFunDao.findFunByRole(userMap);
+                if(funList.contains(uri))return returnValue;
                 int fIdx = oper.idx();
                 if (fIdx>= 0 &&fIdx<args.length){
                     //int functionId = (Integer) args[fIdx];

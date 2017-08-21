@@ -56,12 +56,9 @@
 
 
     <!-- 根据父键查询 -->
-    <select id="findFunByRole" resultType="map" parameterType="map">
-          SELECT
-        f.id,
-        f.`name`,
-        f.route,
-        f.url
+    <select id="findFunByRole" resultType="string" parameterType="map">
+        SELECT
+        f.method
         FROM
             t_fun f
         LEFT JOIN t_role_fun rf ON f.id = rf.nfid

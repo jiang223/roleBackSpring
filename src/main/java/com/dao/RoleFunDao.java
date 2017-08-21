@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public interface RoleFunDao {
     List<String> selectByRoleId(Map map);
-    List<Map> findFunByRole(Map map);
+    List<String> findFunByRole(Map map);
     int batchInsert(Map map);
     int deleteById(Map map);
     List<Map >findMenuByRole(Map map);
