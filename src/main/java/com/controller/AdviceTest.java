@@ -62,16 +62,18 @@ public class AdviceTest {
             RequestAttributes ra = RequestContextHolder.getRequestAttributes();
             ServletRequestAttributes sra = (ServletRequestAttributes) ra;
             HttpServletRequest request = sra.getRequest();
-            String url = request.getRequestURL().toString();
-            String method = request.getMethod();
             String uri = request.getRequestURI();
             HttpSession session=request.getSession();
+            ValidatePermission operc = getSourceClass(jp);
             ValidatePermission oper = soruceMethod.getAnnotation(ValidatePermission.class);
-            if (oper != null) {
-                Map userMap=(Map) session.getAttribute("user");
-                List<String> funList= roleFunDao.findMethodByRole(userMap);
-                if(funList.contains(uri))return returnValue;
-                throw new MyException("您无权操作！");
+            if (operc != null) {
+                if(oper!=null&&oper.vali()){
+                    Map userMap=(Map) session.getAttribute("user");
+                    List<String> funList= roleFunDao.findMethodByRole(userMap);
+                    if(funList.contains(uri))return returnValue;
+                    throw new MyException("您无权操作！");
+                }
+
             }
         }
         return returnValue;
@@ -83,6 +85,15 @@ public class AdviceTest {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private ValidatePermission getSourceClass(JoinPoint jp){
+        try {
+            return jp.getTarget().getClass().getAnnotation(ValidatePermission.class);
+        }
+         catch (Exception e) {
             e.printStackTrace();
         }
         return null;

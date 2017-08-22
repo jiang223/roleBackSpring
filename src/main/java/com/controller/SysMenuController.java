@@ -21,13 +21,14 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/sysMenu")
+@ValidatePermission
 public class SysMenuController extends ParentController {
     @Resource
     FunDao funDao;
 
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
-    @ValidatePermission
+    @ValidatePermission(vali = true)
     public Map get(HttpSession session, @RequestParam Map<String,Object>map)
     {
         try {
