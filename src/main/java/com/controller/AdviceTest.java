@@ -69,7 +69,7 @@ public class AdviceTest {
             ValidatePermission oper = soruceMethod.getAnnotation(ValidatePermission.class);
             if (oper != null) {
                 Map userMap=(Map) session.getAttribute("user");
-                List<String> funList= roleFunDao.findFunByRole(userMap);
+                List<String> funList= roleFunDao.findMethodByRole(userMap);
                 if(funList.contains(uri))return returnValue;
                 throw new MyException("您无权操作！");
             }

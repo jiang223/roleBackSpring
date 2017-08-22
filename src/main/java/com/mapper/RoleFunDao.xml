@@ -55,15 +55,9 @@
     </select>
 
 
-    <!-- 根据父键查询 -->
-    <select id="findFunByRole" resultType="string" parameterType="map">
-        SELECT
-        f.method
-        FROM
-            t_fun f
-        LEFT JOIN t_role_fun rf ON f.id = rf.nfid
-        WHERE
-            rf.nrid = #{roleId}
-        ORDER BY f.sort
+
+    <!-- 路由过滤 -->
+    <select id="findMethodByRole" resultType="string" parameterType="map">
+       call getMsg(#{roleId})
     </select>
 </mapper>
