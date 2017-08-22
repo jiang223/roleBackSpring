@@ -16,9 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.lang.reflect.Method;
-import java.nio.file.AccessDeniedException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,16 +71,7 @@ public class AdviceTest {
                 Map userMap=(Map) session.getAttribute("user");
                 List<String> funList= roleFunDao.findFunByRole(userMap);
                 if(funList.contains(uri))return returnValue;
-                int fIdx = oper.idx();
-                if (fIdx>= 0 &&fIdx<args.length){
-                    //int functionId = (Integer) args[fIdx];
-                    /*String rs = sysUserRolePermService.permissionValidate(functionId);
-                    System.out.println("permissionValidate:"+rs);
-                    if(rs.trim().isEmpty()){
-                        return ;//正常
-                    }*/
-               }
-               throw new MyException("您无权操作！");
+                throw new MyException("您无权操作！");
             }
         }
         return returnValue;
