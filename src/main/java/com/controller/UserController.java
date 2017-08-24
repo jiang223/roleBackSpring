@@ -82,4 +82,25 @@ public class UserController extends ParentController {
         }
 
     }
+    @RequestMapping(method =RequestMethod.GET,value = "/code")
+    @ResponseBody
+    public Map getMethod(HttpSession session,@RequestParam Map map)
+    {
+        try {
+            Map userMap=(Map) session.getAttribute("user");
+            userMap.put("url",map.get("url"));
+            List<String> codeList=roleFunDao.findCodeByRole(userMap);
+            Map codeMap=new HashMap<>();
+            if (codeList.size()!=0){
+               for(String code:codeList){
+                   codeMap.put(code,true);
+               }
+            }
+            return resultSucess(codeMap);
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultError("失败"+e);
+        }
+
+    }
 }

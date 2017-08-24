@@ -60,4 +60,17 @@
     <select id="findMethodByRole" resultType="string" parameterType="map">
        call getMsg(#{roleId})
     </select>
+
+
+    <!--根据url和roleId获取标识-->
+    <select id="findCodeByRole" resultType="string" parameterType="map">
+    SELECT
+	DISTINCT(f.`code`)
+    FROM
+        t_fun f
+    LEFT JOIN t_role_fun rf ON rf.nfid = f.id
+    where f.fid =(select id from t_fun where url=#{url})
+    and rf.nrid=#{roleId}
+    </select>
+
 </mapper>

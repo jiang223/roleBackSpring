@@ -27,7 +27,7 @@ public class SysRoleController extends ParentController {
 
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
-    public Map get(HttpSession session, @RequestParam Map<String,Object>map)
+    public Map getPage(HttpSession session, @RequestParam Map<String,Object>map)
     {
         try {
             Pagination pagination=new Pagination(map);

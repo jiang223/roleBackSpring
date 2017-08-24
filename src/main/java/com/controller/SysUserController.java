@@ -27,7 +27,7 @@ public class SysUserController extends ParentController {
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
     @ValidatePermission
-    public Map get(HttpSession session, @RequestParam Map map)
+    public Map getPage(HttpSession session, @RequestParam Map map)
     {
         try {
             Pagination pagination=new Pagination(map);

@@ -5,8 +5,7 @@ import com.util.MyException;
 import com.util.ValidatePermission;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -17,6 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,30 +27,16 @@ import java.util.Map;
 public class AdviceTest {
     @Resource
     RoleFunDao roleFunDao;
-    @Around("execution( * com.gjj.controller.*.*(..))")
-    public Object process(ProceedingJoinPoint point) throws Throwable {
-        System.out.println("@Around：执行目标方法之前...");
-        //访问目标方法的参数：
-        Object[] args = point.getArgs();
-        if (args!=null){
-            for(int i=0;i<args.length;i++){
-                System.out.print(args[i].getClass());
-                if(args[i]!=null&&args[i].getClass()== LinkedHashMap.class){
-                    System.out.println("@Around：执行目标"+point.getTarget().getClass().getName()+"方法之前解密...");
-                    for(Map.Entry entry : ((Map<String,Object>)args[i]).entrySet())
-                    {
-
-                    }
-                }
-            }
-        }
-        //用改变后的参数执行目标方法
-        Object returnValue = point.proceed(args);
-        System.out.println("@Around：执行目标方法之后...");
-        System.out.println("@Around：被织入的目标对象为：" + point.getTarget());
-        return returnValue;
-
-    }
+//    @Pointcut("@annotation(com.util.PageCode)")
+//    public void recordLog(){}
+//    @Around("recordLog()")
+//    public Object process(ProceedingJoinPoint joinPoint) throws Throwable {
+//        Object[] args = joinPoint.getArgs();
+//        Object returnValue = joinPoint.proceed(args);
+//
+//        return returnValue;
+//
+//    }
     @Around("execution( * com.controller.*.*(..))")
     public Object doBefore(ProceedingJoinPoint jp) throws Throwable {
         Object[] args = jp.getArgs();
