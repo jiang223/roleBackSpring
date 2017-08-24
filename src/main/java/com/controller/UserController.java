@@ -31,13 +31,31 @@ public class UserController extends ParentController {
     public Map login(HttpSession session, @RequestBody Map map)
     {
         try {
-             Map userMap=userDao.login(map);
-              if (userMap!=null){
-                  session.setAttribute("user",userMap);
-                 return resultSucess(userMap);
-              }else{
-                 return resultError("账号或密码错误");
-              }
+            Map userMap=userDao.login(map);
+            if (userMap!=null){
+                session.setAttribute("user",userMap);
+                return resultSucess(userMap);
+            }else{
+                return resultError("账号或密码错误");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return resultError("失败"+e);
+        }
+
+    }
+    @RequestMapping(method =RequestMethod.GET,value = "/logout")
+    @ResponseBody
+    public Map logout(HttpSession session)
+    {
+        try {
+            Map userMap=(Map) session.getAttribute("user");
+            if (userMap!=null){
+                session.setAttribute("user",null);
+                return resultSucess(userMap);
+            }else{
+                return resultError("账号或密码错误");
+            }
         }catch (Exception e){
             e.printStackTrace();
             return resultError("失败"+e);
