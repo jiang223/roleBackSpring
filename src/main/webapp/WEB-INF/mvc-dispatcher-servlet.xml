@@ -14,6 +14,7 @@
 
     <!--指明 controller 所在包，并扫描其中的注解-->
     <context:component-scan base-package="com.controller,com.service"/>
+    <bean id="springContextHolder"  class="com.util.SpringContextHolder" />
     <!-- 静态资源(js、image等)的访问 -->
     <mvc:default-servlet-handler/>
 
@@ -60,7 +61,7 @@
     <property name="url" value="jdbc:mysql://119.23.110.10:3306/role" />
       <!--  <property name="url" value="jdbc:mysql://localhost:3306/role" />-->
         <property name="username" value="root" />
-        <property name="password" value="id.com" />
+        <property name="password" value="21grid.com" />
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="10"></property>
         <!--连接保持空闲而不被驱逐的最长时间。-->
@@ -74,7 +75,8 @@
         <!-- 获取连接最大等待时间 -->
         <property name="maxWait" value="1000"></property>
     </bean>
-
+    <!-- 用于持有ApplicationContext,可以使用SpringContextHolder.getBean('xxxx')的静态方法得到spring bean对象 -->
+   <!--<bean class="com.util.SpringContextHolder" lazy-init="false" />-->
     <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />

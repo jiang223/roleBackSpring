@@ -20,13 +20,19 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/sysUser")
+@ValidatePermission
 public class SysUserController extends ParentController {
     @Resource
     UserDao userDao;
 
+    /**
+     *用户管理分页数据获取
+     * @param session
+     * @param map
+     * @return
+     */
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
-    @ValidatePermission
     public Map getPage(HttpSession session, @RequestParam Map map)
     {
         try {
@@ -42,6 +48,13 @@ public class SysUserController extends ParentController {
         }
 
     }
+
+    /**
+     * 用户管理新增用户
+     * @param session
+     * @param map
+     * @return
+     */
     @RequestMapping(method =RequestMethod.POST)
     @ResponseBody
     public Map add(HttpSession session, @RequestBody Map<String,Object>map)
@@ -59,6 +72,12 @@ public class SysUserController extends ParentController {
 
     }
 
+    /**
+     * 用户管理更新用户
+     * @param session
+     * @param map
+     * @return
+     */
     @RequestMapping(method =RequestMethod.PATCH)
     @ResponseBody
     public Map update(HttpSession session, @RequestBody Map<String,Object>map)
@@ -76,6 +95,13 @@ public class SysUserController extends ParentController {
         }
 
     }
+
+    /**
+     * 用户管理删除用户
+     * @param session
+     * @param map
+     * @return
+     */
     @RequestMapping(method =RequestMethod.DELETE)
     @ResponseBody
     public Map delete(HttpSession session, @RequestBody Map<String,Object>map)

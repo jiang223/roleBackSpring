@@ -11,32 +11,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 
 @Component
 @Aspect
-public class AdviceTest {
+public class UrlAop {
     @Resource
     RoleFunDao roleFunDao;
-//    @Pointcut("@annotation(com.util.PageCode)")
-//    public void recordLog(){}
-//    @Around("recordLog()")
-//    public Object process(ProceedingJoinPoint joinPoint) throws Throwable {
-//        Object[] args = joinPoint.getArgs();
-//        Object returnValue = joinPoint.proceed(args);
-//
-//        return returnValue;
-//
-//    }
+
     @Around("execution( * com.controller.*.*(..))")
     public Object doBefore(ProceedingJoinPoint jp) throws Throwable {
         Object[] args = jp.getArgs();

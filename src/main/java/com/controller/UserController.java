@@ -3,10 +3,8 @@ package com.controller;
 
 import com.dao.RoleFunDao;
 import com.dao.UserDao;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.model.Pagination;
 import com.util.ParentController;
+import com.util.ValidatePermission;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +15,27 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 用户登录管理
  * Created by Administrator on 2017-08-16.
  */
 @Controller
 @RequestMapping("/user")
+@ValidatePermission
 public class UserController extends ParentController {
     @Resource
     UserDao userDao;
     @Resource
     RoleFunDao roleFunDao;
+
+    /**
+     * 登录
+     * @param session
+     * @param map
+     * @return
+     */
     @RequestMapping(method =RequestMethod.POST,value = "/login")
     @ResponseBody
+    @ValidatePermission(vali = false)
     public Map login(HttpSession session, @RequestBody Map map)
     {
         try {
@@ -44,6 +52,12 @@ public class UserController extends ParentController {
         }
 
     }
+
+    /**
+     * 退出
+     * @param session
+     * @return
+     */
     @RequestMapping(method =RequestMethod.GET,value = "/logout")
     @ResponseBody
     public Map logout(HttpSession session)
@@ -62,6 +76,12 @@ public class UserController extends ParentController {
         }
 
     }
+
+    /**
+     * 验证是否为登录状态
+     * @param session
+     * @return
+     */
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
     public Map viLogin(HttpSession session)
@@ -79,6 +99,12 @@ public class UserController extends ParentController {
         }
 
     }
+
+    /**
+     * 获取当前用户菜单
+     * @param session
+     * @return
+     */
     @RequestMapping(method =RequestMethod.GET,value = "/menu")
     @ResponseBody
     public Map getMenu(HttpSession session)
@@ -100,6 +126,13 @@ public class UserController extends ParentController {
         }
 
     }
+
+    /**
+     * 获取当前用户对页面操作code
+     * @param session
+     * @param map
+     * @return
+     */
     @RequestMapping(method =RequestMethod.GET,value = "/code")
     @ResponseBody
     public Map getMethod(HttpSession session,@RequestParam Map map)
