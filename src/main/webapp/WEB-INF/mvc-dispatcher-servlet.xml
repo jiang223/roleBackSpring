@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
-
+    <import resource="spring-redis.xml"></import>
     <!--指明 controller 所在包，并扫描其中的注解-->
     <context:component-scan base-package="com.controller,com.service"/>
     <bean id="springContextHolder"  class="com.util.SpringContextHolder" />
@@ -101,5 +101,4 @@
    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     <!-- 开启事务管理注解 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
-    <import resource="spring-redis.xml"></import>
 </beans>

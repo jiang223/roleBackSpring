@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.RoleFunDao">
-
+  <cache/>
   <insert id="batchInsert" parameterType="map">
     insert into t_role_fun
     (nrid,nfid)
@@ -28,8 +28,9 @@
     <resultMap type="map" id="menu_map">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="nrid" jdbcType="INTEGER" property="nrid" />
         <result column="url" jdbcType="VARCHAR" property="url" />
-        <collection property="children" column="id"
+        <collection property="children" column="{id=id,roleId=nrid}"
                     select="findMenuByparentId" />
     </resultMap>
     <!--查询所有，使用resultMap返回结果集，将数据组装成树形结构  -->
@@ -37,7 +38,8 @@
       SELECT
     f.id,
     f.`name`,
-    f.url
+    f.url,
+    rf.nrid
     FROM
         t_fun f
     LEFT JOIN t_role_fun rf ON f.id = rf.nfid
@@ -47,10 +49,12 @@
     ORDER BY f.sort
     </select>
     <!-- 根据父键查询 -->
-    <select id="findMenuByparentId" resultType="map" parameterType="INTEGER">
+    <select id="findMenuByparentId" resultType="map" parameterType="map">
         select   f.id,
     f.`name`,
-    f.url  from t_fun f where f.fid=#{id}
+    f.url  from t_fun f
+     LEFT JOIN t_role_fun rf ON f.id = rf.nfid
+    where f.fid=#{id} and   rf.nrid = #{roleId}
     ORDER BY f.sort
     </select>
 

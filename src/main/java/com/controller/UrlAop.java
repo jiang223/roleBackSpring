@@ -41,7 +41,7 @@ public class UrlAop {
             ValidatePermission operc = getSourceClass(jp);
             ValidatePermission oper = soruceMethod.getAnnotation(ValidatePermission.class);
             if (operc != null) {
-                if(oper!=null&&oper.vali()){
+                if(oper==null||oper.vali()){
                     Map userMap=(Map) session.getAttribute("user");
                     List<String> funList= roleFunDao.findMethodByRole(userMap);
                     if(funList.contains(uri))return returnValue;

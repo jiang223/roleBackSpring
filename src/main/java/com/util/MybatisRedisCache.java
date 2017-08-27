@@ -52,8 +52,9 @@ public class MybatisRedisCache implements Cache {
   
     @Override  
     public void putObject(Object key, Object value) {
+        redisTemplate=(RedisTemplate<Serializable, Serializable>) SpringContextHolder.getBean("redisTemplate");
         //SysMenuController MENU=SpringContextHolder.getBean(SysMenuController.class);
-        redisTemplate=(RedisTemplate<Serializable, Serializable>) SpringContextHolder.getBean(RedisTemplate.class);
+        //redisTemplate=(RedisTemplate<Serializable, Serializable>) SpringContextHolder.getBean(RedisTemplate.class);
         if(value != null){  
             redisTemplate.opsForValue().set(key.toString(), jdkSerializer.serialize(value), 2, TimeUnit.DAYS);  
         }  
@@ -61,8 +62,8 @@ public class MybatisRedisCache implements Cache {
   
     @Override  
     public Object getObject(Object key) {
-        RedisTemplate MENU=(RedisTemplate)SpringContextHolder.getBean(RedisTemplate.class);
-        redisTemplate=(RedisTemplate<Serializable, Serializable>) SpringContextHolder.getBean("redisTemplate");
+       // RedisTemplate MENU=(RedisTemplate)SpringContextHolder.getBean(RedisTemplate.class);
+        //redisTemplate=(RedisTemplate<Serializable, Serializable>) SpringContextHolder.getBean("redisTemplate");
         try {  
             if(key != null){  
                 Object obj = redisTemplate.opsForValue().get(key.toString());  
@@ -76,7 +77,7 @@ public class MybatisRedisCache implements Cache {
   
     @Override  
     public Object removeObject(Object key) {
-        redisTemplate=(RedisTemplate<Serializable, Serializable>) SpringContextHolder.getBean("redisTemplate");
+        //redisTemplate=(RedisTemplate<Serializable, Serializable>) SpringContextHolder.getBean("redisTemplate");
         try {  
             if(key != null){  
                 redisTemplate.expire(key.toString(), 1, TimeUnit.SECONDS);
@@ -93,7 +94,7 @@ public class MybatisRedisCache implements Cache {
   
     @Override  
     public int getSize() {
-        redisTemplate=(RedisTemplate<Serializable, Serializable>) SpringContextHolder.getBean("redisTemplate");
+        //redisTemplate=(RedisTemplate<Serializable, Serializable>) SpringContextHolder.getBean("redisTemplate");
         Long size = redisTemplate.execute(new RedisCallback<Long>(){
             @Override  
             public Long doInRedis(RedisConnection connection)

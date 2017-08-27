@@ -39,7 +39,6 @@ return (T) applicationContext.getBean(name);
 @SuppressWarnings("unchecked")  
 public static <T> T getBean(Class<T> clazz) {  
 checkApplicationContext();
-    Object O=applicationContext.getBeansOfType(clazz);
 return (T) applicationContext.getBeansOfType(clazz);  
 }  
   
