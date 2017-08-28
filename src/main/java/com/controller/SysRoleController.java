@@ -8,6 +8,7 @@ import com.model.Pagination;
 import com.util.ParentController;
 import com.util.ValidatePermission;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -135,6 +136,7 @@ public class SysRoleController extends ParentController {
      */
     @RequestMapping(value = "/updateFunction" ,method =RequestMethod.PATCH)
     @ResponseBody
+    @Transactional
     public Map updateFunction(HttpSession session, @RequestBody Map<String,Object>map)
     {
         try {
@@ -159,6 +161,10 @@ public class SysRoleController extends ParentController {
     public Map delete(HttpSession session, @RequestBody Map<String,Object>map)
     {
         try {
+            int count=roleDao.countRoleUser(map);
+            if(count>0){
+               return resultError("请先在用户中移除该角色后执行该操作");
+            }
             roleDao.deleteById(map);
             return resultSucess("删除成功");
         }catch (Exception e){

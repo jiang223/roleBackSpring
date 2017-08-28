@@ -12,4 +12,5 @@ public interface RoleDao {
     void insertSelective(Map map);
     void updateByPrimaryKeySelective(Map map);
     void deleteById(Map map);
+    int countRoleUser(Map map);
 }

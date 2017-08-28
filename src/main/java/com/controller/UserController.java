@@ -60,6 +60,7 @@ public class UserController extends ParentController {
      */
     @RequestMapping(method =RequestMethod.GET,value = "/logout")
     @ResponseBody
+    @ValidatePermission(vali = false)
     public Map logout(HttpSession session)
     {
         try {

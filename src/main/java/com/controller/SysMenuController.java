@@ -101,10 +101,18 @@ public class SysMenuController extends ParentController {
     public Map delete(HttpSession session, @RequestBody Map<String,Object>map)
     {
         try {
+            int count= funDao.countMenuByparentId(map);
+            int rcount= funDao.countRoleByFunId(map);
+            if (count>0){
+                return resultError("请先删除子菜单后执行该操作");
+            }
+            if(rcount>0){
+                return resultError("请先将相应角色管理取消后执行该操作");
+            }
             funDao.deleteById(map);
             return resultSucess("删除成功");
         }catch (Exception e){
-            e.printStackTrace();
+            e.printStackTrace() ;
             return resultError("失败"+e);
         }
 

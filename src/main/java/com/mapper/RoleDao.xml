@@ -47,4 +47,10 @@
     t_role
     WHERE 1=1
   </select>
+  <!--统计有多少用户使用该角色-->
+  <select id="countRoleUser" parameterType="map" resultType="Integer">
+    SELECT  count(*) FROM
+    t_role
+    WHERE id=#{id}
+  </select>
 </mapper>

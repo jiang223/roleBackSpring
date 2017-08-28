@@ -106,4 +106,12 @@
   <select id="findMenuByparentId" resultMap="menu_map" parameterType="INTEGER">
     select *  from t_fun where fid=#{id}
   </select>
+  <!--删除查询是否有子菜单-->
+  <select id="countMenuByparentId" resultType="INTEGER" parameterType="map">
+    select count(*) from t_fun where fid=#{id}
+  </select>
+  <!--删除查询是否被角色管理-->
+  <select id="countRoleByFunId" resultType="INTEGER" parameterType="map">
+    select count(*) from t_role_fun where nfid=#{id}
+  </select>
 </mapper>

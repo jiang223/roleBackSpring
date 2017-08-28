@@ -10,4 +10,6 @@ public interface FunDao {
   void insertSelective(Map map);
   void updateByPrimaryKeySelective(Map map);
   void  deleteById(Map map);
+  int countMenuByparentId(Map map);
+  int countRoleByFunId(Map map);
 }

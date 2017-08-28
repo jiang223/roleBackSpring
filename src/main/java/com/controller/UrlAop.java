@@ -28,7 +28,6 @@ public class UrlAop {
     @Around("execution( * com.controller.*.*(..))")
     public Object doBefore(ProceedingJoinPoint jp) throws Throwable {
         Object[] args = jp.getArgs();
-        Object returnValue = jp.proceed(args);
         System.out.println(
                 "log PermissionAspect Before method: " + jp.getTarget().getClass().getName() + "." + jp.getSignature().getName());
         Method soruceMethod = getSourceMethod(jp);
@@ -44,12 +43,16 @@ public class UrlAop {
                 if(oper==null||oper.vali()){
                     Map userMap=(Map) session.getAttribute("user");
                     List<String> funList= roleFunDao.findMethodByRole(userMap);
-                    if(funList.contains(uri))return returnValue;
+                    if(funList.contains(uri)){
+                        Object returnValue = jp.proceed(args);
+                        return returnValue;
+                    }
                     throw new MyException("您无权操作！");
                 }
 
             }
         }
+        Object returnValue = jp.proceed(args);
         return returnValue;
     }
     private Method getSourceMethod(JoinPoint jp){
