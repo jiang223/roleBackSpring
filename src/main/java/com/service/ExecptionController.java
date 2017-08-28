@@ -25,7 +25,7 @@ public class ExecptionController {
     public Map accessDenied(){
         Map map=new HashMap<>();
         map.put("suncess",false);
-        map.put("mess","你无权访问");
+        map.put("message","你无权访问");
         return map;
     }
 

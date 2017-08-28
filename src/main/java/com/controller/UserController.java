@@ -84,6 +84,7 @@ public class UserController extends ParentController {
      */
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
+    @ValidatePermission(vali = false)
     public Map viLogin(HttpSession session)
     {
         try {
@@ -107,6 +108,7 @@ public class UserController extends ParentController {
      */
     @RequestMapping(method =RequestMethod.GET,value = "/menu")
     @ResponseBody
+    @ValidatePermission(vali = false)
     public Map getMenu(HttpSession session)
     {
         try {
