@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
     <import resource="spring-redis.xml"></import>
     <!--指明 controller 所在包，并扫描其中的注解-->
-    <context:component-scan base-package="com.controller,com.service"/>
+    <context:component-scan base-package="com.controller,com.service,com.dao"/>
     <bean id="springContextHolder"  class="com.util.SpringContextHolder" />
     <!-- 静态资源(js、image等)的访问 -->
     <mvc:default-servlet-handler/>
@@ -21,7 +21,7 @@
     <!-- 开启注解 -->
     <mvc:annotation-driven/>
 
-    <!-- API 接口跨域配置 -->
+  <!-- &lt;!&ndash;  API 接口跨域配置&ndash;&gt;
     <mvc:cors>
         <mvc:mapping path="*"
                      allowed-origins="*"
@@ -30,7 +30,7 @@
                      exposed-headers="header1, header2" allow-credentials="false"
                      max-age="123" />
 
-    </mvc:cors>
+    </mvc:cors>-->
 
     <aop:aspectj-autoproxy />
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

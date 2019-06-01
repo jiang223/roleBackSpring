@@ -100,11 +100,11 @@
   </resultMap>
   <!--查询所有，使用resultMap返回结果集，将数据组装成树形结构  -->
   <select id="findMenuAll" resultMap="menu_map">
-    select * from t_fun where fid='0'
+    select * from t_fun where fid='0' order by sort
   </select>
   <!-- 根据父键查询 -->
   <select id="findMenuByparentId" resultMap="menu_map" parameterType="INTEGER">
-    select *  from t_fun where fid=#{id}
+    select *  from t_fun where fid=#{id} order by sort
   </select>
   <!--删除查询是否有子菜单-->
   <select id="countMenuByparentId" resultType="INTEGER" parameterType="map">

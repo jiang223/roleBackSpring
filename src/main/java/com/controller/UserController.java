@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/user")
-@ValidatePermission
+@ValidatePermission(vali = false)
 public class UserController extends ParentController {
     @Resource
     UserDao userDao;
@@ -35,7 +35,6 @@ public class UserController extends ParentController {
      */
     @RequestMapping(method =RequestMethod.POST,value = "/login")
     @ResponseBody
-    @ValidatePermission(vali = false)
     public Map login(HttpSession session, @RequestBody Map map)
     {
         try {
@@ -60,7 +59,6 @@ public class UserController extends ParentController {
      */
     @RequestMapping(method =RequestMethod.GET,value = "/logout")
     @ResponseBody
-    @ValidatePermission(vali = false)
     public Map logout(HttpSession session)
     {
         try {
@@ -85,7 +83,6 @@ public class UserController extends ParentController {
      */
     @RequestMapping(method =RequestMethod.GET)
     @ResponseBody
-    @ValidatePermission(vali = false)
     public Map viLogin(HttpSession session)
     {
         try {
@@ -109,7 +106,6 @@ public class UserController extends ParentController {
      */
     @RequestMapping(method =RequestMethod.GET,value = "/menu")
     @ResponseBody
-    @ValidatePermission(vali = false)
     public Map getMenu(HttpSession session)
     {
         try {

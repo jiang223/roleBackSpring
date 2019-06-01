@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ParmDao">
+
+
+  <insert id="insertSelective" parameterType="map" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_sys_parameter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parmType != null">
+        parm_type,
+      </if>
+      <if test="parmName != null">
+        parm_name,
+      </if>
+      <if test="parmVal != null">
+        parm_val,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="dic_1 != null">
+        dic_1,
+      </if>
+      <if test="dic_2 != null">
+        dic_2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parmType != null">
+        #{parmType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="parmName != null">
+        #{parmName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="parmVal != null">
+        #{parmVal,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="dic_1 != null">
+        #{dic_1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dic_2 != null">
+        #{dic_2,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteById" parameterType="map">
+    DELETE  FROM t_sys_parameter
+    where parm_id=#{parmId}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    update t_sys_parameter
+    <set>
+      <if test="parmType != null">
+        parm_type=#{parmType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="parmName != null">
+        parm_name=#{parmName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="parmVal != null">
+        parm_val= #{parmVal,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sort != null">
+        sort=#{sort,jdbcType=INTEGER},
+      </if>
+      <if test="dic_1 != null">
+        dic_1=#{dic_1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dic_2 != null">
+        dic_2#{dic_2,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where parm_id = #{parmId,jdbcType=BIGINT}
+  </update>
+
+  <select id="findParmPage" parameterType="map" resultType="map">
+    SELECT p.*  FROM t_sys_parameter p WHERE 1=1
+    <if test="parmType!= null and parmType!=''">
+      and p.parm_type=#{parmType}
+    </if>
+    <if test="parmName!= null  and parmName!='' ">
+      and p.parm_name=#{parmName}
+    </if>
+    order by parm_type,sort
+  </select>
+
+</mapper>
