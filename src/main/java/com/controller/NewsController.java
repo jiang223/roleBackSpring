@@ -9,6 +9,7 @@ import com.util.ParentController;
 import com.util.ValidatePermission;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -64,7 +65,20 @@ public class NewsController extends ParentController {
         }
 
     }
+    /**
+     * 删除
+     * @param map
+     * @return
+     */
+    @RequestMapping(method =RequestMethod.GET,value = "/get2")
+    @ResponseBody
+    public ModelAndView get2 ()
+    {
+        ModelAndView mav=new ModelAndView();
+        mav.setViewName("redirect:http://api.tongtongtingche.com.cn/MobileServer/home/fee_query.htm");
+        return mav;
 
+    }
     /**
      * 新增
      * @param map
